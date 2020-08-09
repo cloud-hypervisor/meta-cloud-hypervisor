@@ -4,6 +4,6 @@ This Yocto layer provides build definitions for [Cloud Hypervisor](https://githu
 
 # Dependencies
 
-  URI: https://github.com/meta-rust/meta-rust/
-  branch: thud|warrior|zeus|dunfell
+* URI: https://github.com/meta-rust/meta-rust/
+* branch: thud|warrior|zeus|dunfell
 
