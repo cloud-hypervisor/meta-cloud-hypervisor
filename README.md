@@ -7,3 +7,10 @@ This Yocto layer provides build definitions for [Cloud Hypervisor](https://githu
 * URI: https://github.com/meta-rust/meta-rust/
 * branch: thud|warrior|zeus|dunfell
 
+# TODO 
+
+* Add patched edk2 firmware suitable for CH 
+* Add meta-virtualization dependency for 
+ * KVM support
+ * libvirt 
+
