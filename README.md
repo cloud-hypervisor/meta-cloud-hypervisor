@@ -14,6 +14,6 @@ This Yocto layer provides build definitions for [Cloud Hypervisor](https://githu
 * Add meta-virtualization dependency for 
   * Better KVM support
   * libvirt
+* Configure CI builds (Travis-CI?)
 * Improve offline build. Most likely requires some change to `meta-rust` cargo and other bbclasses
 * Improve support for git based sources.
-
