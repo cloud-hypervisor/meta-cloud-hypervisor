@@ -1,6 +1,6 @@
 SUMMARY = "Open source Virtual Machine Monitor (VMM) that runs on top of KVM"
 HOMEPAGE = "https://github.com/cloud-hypervisor/cloud-hypervisor"
-LICENSE = "LICENSE-APACHE & LICENSE-BSD-3-Clause"
+LICENSE = "Apache-2.0 & BSD-3-Clause"
 LIC_FILES_CHKSUM = "file://LICENSE-APACHE;md5=3b83ef96387f14655fc854ddc3c6bd57 \
 		file://LICENSE-BSD-3-Clause;md5=b1ed361f9fc790c1054d81a7ef041a34"
 
