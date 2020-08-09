@@ -11,6 +11,6 @@ This Yocto layer provides build definitions for [Cloud Hypervisor](https://githu
 
 * Add patched edk2 firmware suitable for CH 
 * Add meta-virtualization dependency for 
- * KVM support
- * libvirt 
+  * KVM support
+  * libvirt 
 
