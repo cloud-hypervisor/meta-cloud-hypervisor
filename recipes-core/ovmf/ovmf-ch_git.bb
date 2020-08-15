@@ -125,15 +125,12 @@ do_install_class-native() {
 }
 
 do_install_class-target() {
-    OVMF_TGT_DIR=${D}/usr/share/ch
+    OVMF_TGT_DIR=${D}/usr/share/cloud-hypervisor
 
     install -d ${OVMF_TGT_DIR}
     install -m 644 ${S}/Build/OvmfCh/${EDK_BUILD_TYPE}_${EDK_GCCVER}/FV/OVMF.fd ${OVMF_TGT_DIR}
     install -m 644 ${S}/Build/OvmfCh/${EDK_BUILD_TYPE}_${EDK_GCCVER}/FV/OVMF_CODE.fd ${OVMF_TGT_DIR}
     install -m 644 ${S}/Build/OvmfCh/${EDK_BUILD_TYPE}_${EDK_GCCVER}/FV/OVMF_VARS.fd ${OVMF_TGT_DIR}
-
-    cd ${D}/usr/share
-    ln -s ch cloud-hypervisor
 }
 
 FILES_${PN} = "/usr/share/cloud-hypervisor"
