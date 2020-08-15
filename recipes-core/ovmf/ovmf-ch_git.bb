@@ -10,15 +10,28 @@ LIC_FILES_CHKSUM = "file://OvmfPkg/License.txt;md5=06357ddc23f46577c2aeaeaf7b776
 #  - EFI image build is cut off
 #  - The target firmware is installed under /usr/share/cloud-hypervisor
 
-SRC_URI = "gitsm://github.com/cloud-hypervisor/edk2.git;branch=ch;protocol=git \
-           file://0001-ovmf-update-path-to-native-BaseTools.patch  \
-           file://0002-BaseTools-makefile-adjust-to-build-in-under-bitbake.patch \
-           file://0003-ovmf-enable-long-path-file.patch \
-           file://0004-ovmf-Update-to-latest.patch \
-           "
+SRC_URI = "git://github.com/cloud-hypervisor/edk2.git;branch=ch;name=edk2;protocol=git \
+	git://github.com/openssl/openssl;branch=OpenSSL_1_1_1-stable;protocol=git;name=openssl;destsuffix=git/CryptoPkg/Library/OpensslLib/openssl \
+	git://github.com/ucb-bar/berkeley-softfloat-3.git;protocol=git;name=softfloat;destsuffix=git/ArmPkg/Library/ArmSoftFloatLib/berkeley-softfloat-3 \
+	git://git.cryptomilk.org/projects/cmocka.git;protocol=git;name=cmocka;destsuffix=git/UnitTestFrameworkPkg/Library/CmockaLib/cmocka \
+	git://github.com/kkos/oniguruma;protocol=git;name=oniguruma;destsuffix=git/MdeModulePkg/Universal/RegularExpressionDxe/oniguruma \
+	file://0001-ovmf-update-path-to-native-BaseTools.patch  \
+	file://0002-BaseTools-makefile-adjust-to-build-in-under-bitbake.patch \
+	file://0003-ovmf-enable-long-path-file.patch \
+	file://0004-ovmf-Update-to-latest.patch \
+	"
 
 PV = "20202906.0"
-SRCREV = "9071987a5ab702d2bbe7d7be51312256bd11b34e"
+SRCREV_FORMAT .= "_"
+SRCREV_edk2_pn-${PN} = "9071987a5ab702d2bbe7d7be51312256bd11b34e"
+SRCREV_FORMAT .= "_edk2"
+SRCREV_openssl_pn-${PN} = "c3656cc594daac8167721dde7220f0e59ae146fc"
+SRCREV_FORMAT .= "_openssl"
+SRCREV_softfloat_pn-${PN} = "b64af41c3276f97f0e181920400ee056b9c88037"
+SRCREV_FORMAT .= "_softfloat"
+SRCREV_cmocka_pn-${PN} = "1cc9cde3448cdd2e000886a26acf1caac2db7cf1"
+SRCREV_FORMAT .= "_oniguruma"
+SRCREV_oniguruma_pn-${PN} = "abfc8ff81df4067f309032467785e06975678f0d"
 
 PARALLEL_MAKE = ""
 
