@@ -9,7 +9,7 @@ This Yocto layer provides build definitions for [Cloud Hypervisor](https://githu
 
 # TODO 
 
-* Add patched edk2 firmware suitable for CH
+* <strike>Add patched edk2 firmware suitable for CH</strike>
 * Add recipe for static CH build
 * Add meta-virtualization dependency for 
   * Better KVM support
