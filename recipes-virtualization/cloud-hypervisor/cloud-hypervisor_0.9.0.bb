@@ -169,7 +169,7 @@ SRC_URI += " \
     git://github.com/rust-vmm/linux-loader;protocol=https;nobranch=1;name=linux-loader;destsuffix=linux-loader \
     git://github.com/tokio-rs/io-uring.git;protocol=https;nobranch=1;name=io-uring;destsuffix=io-uring \
     file://Cargo.toml-package-missing.patch \
-    file://vm-memory-dep.patch \
+    file://vm-memory-dep-${PV}.patch \
     file://config-${PV} \
 "
 
