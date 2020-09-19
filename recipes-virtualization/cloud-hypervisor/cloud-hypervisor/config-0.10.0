@@ -1,0 +1,49 @@
+
+[source."https://github.com/cloud-hypervisor/kvm-bindings"]
+git = "https://github.com/cloud-hypervisor/kvm-bindings"
+branch = "ch"
+replace-with = "vendored-sources"
+
+[source."https://github.com/cloud-hypervisor/kvm-ioctls"]
+git = "https://github.com/cloud-hypervisor/kvm-ioctls"
+branch = "ch"
+replace-with = "vendored-sources"
+
+[source."https://github.com/cloud-hypervisor/vfio-ioctls"]
+git = "https://github.com/cloud-hypervisor/vfio-ioctls"
+branch = "ch"
+replace-with = "vendored-sources"
+
+[source."https://github.com/rust-vmm/vhost"]
+git = "https://github.com/rust-vmm/vhost"
+branch = "master"
+replace-with = "vendored-sources"
+
+[source."https://github.com/cloud-hypervisor/vm-memory"]
+git = "https://github.com/cloud-hypervisor/vm-memory"
+branch = "ch"
+replace-with = "vendored-sources"
+
+[source."https://github.com/firecracker-microvm/firecracker"]
+git = "https://github.com/firecracker-microvm/firecracker"
+tag = "v0.22.0"
+replace-with = "vendored-sources"
+
+[source."https://github.com/firecracker-microvm/micro-http"]
+git = "https://github.com/firecracker-microvm/micro-http"
+branch = "master"
+replace-with = "vendored-sources"
+
+[source."https://github.com/rust-vmm/linux-loader"]
+git = "https://github.com/rust-vmm/linux-loader"
+branch = "master"
+replace-with = "vendored-sources"
+
+[source."https://github.com/tokio-rs/io-uring.git"]
+git = "https://github.com/tokio-rs/io-uring.git"
+branch = "0.4"
+replace-with = "vendored-sources"
+
+[source.vendored-sources]
+directory = "VENDOR_PATH"
+
