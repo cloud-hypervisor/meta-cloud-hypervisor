@@ -21,9 +21,9 @@ SRC_URI = "git://github.com/cloud-hypervisor/edk2.git;branch=ch;name=edk2;protoc
 	file://0004-ovmf-Update-to-latest.patch \
 	"
 
-PV = "20202906.0"
+PV = "20200410.0"
 SRCREV_FORMAT .= "_"
-SRCREV_edk2_pn-${PN} = "9071987a5ab702d2bbe7d7be51312256bd11b34e"
+SRCREV_edk2_pn-${PN} = "8d438fe6175e356383e888fc6d3cdab2c07e4143"
 SRCREV_FORMAT .= "_edk2"
 SRCREV_openssl_pn-${PN} = "c3656cc594daac8167721dde7220f0e59ae146fc"
 SRCREV_FORMAT .= "_openssl"
