@@ -1,4 +1,8 @@
 
+DESCRIPTION = "OVMF is an EDK II based project to enable UEFI support for \
+Virtual Machines. This package produces UEFI firmware with embedded \
+SeaBIOS CSM module for Cloud Hypervisor."
+
 require ovmf-ch.inc
 
 DEPENDS_append = " seabios-csm-ch"

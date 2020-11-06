@@ -1,5 +1,5 @@
 SUMMARY = "UEFI firmware for Cloud Hypervisor"
-DESCRIPTION = "OVMF is an EDK II based project to enable UEFI support for \
+DESCRIPTION ?= "OVMF is an EDK II based project to enable UEFI support for \
 Virtual Machines. This package produces UEFI firmware for Cloud Hypervisor."
 LICENSE = "BSD-2-Clause"
 LIC_FILES_CHKSUM = "file://OvmfPkg/License.txt;md5=06357ddc23f46577c2aeaeaf7b776d65"

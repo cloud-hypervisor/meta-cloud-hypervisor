@@ -1,4 +1,4 @@
-DESCRIPTION = "SeaBIOS"
+DESCRIPTION = "SeaBIOS with Compatibility Support Module (CSM)"
 HOMEPAGE = "http://www.coreboot.org/SeaBIOS"
 LICENSE = "LGPLv3"
 SECTION = "firmware"
