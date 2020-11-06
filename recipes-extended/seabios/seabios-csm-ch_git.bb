@@ -3,6 +3,7 @@ HOMEPAGE = "http://www.coreboot.org/SeaBIOS"
 LICENSE = "LGPLv3"
 SECTION = "firmware"
 
+PV = "20200611.0"
 FILESEXTRAPATHS_prepend := "${THISDIR}/files:"
 
 inherit python3native
