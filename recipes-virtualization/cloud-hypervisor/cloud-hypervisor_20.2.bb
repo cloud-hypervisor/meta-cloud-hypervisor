@@ -137,6 +137,7 @@ SRC_URI += " \
     file://0001-Remove-patching-of-kvm-and-versionaize_derive.patch \
     file://0001-Patch-versionize-versionize_derive-and-kvm-ioctls.patch \
     file://0001-vmm-api-Support-multiple-fds-with-add-net.patch \
+    file://0001-Update-depedency-to-Cargo.lock-not-to-use-patching.patch \
     file://config-20.2 \
 "
 
