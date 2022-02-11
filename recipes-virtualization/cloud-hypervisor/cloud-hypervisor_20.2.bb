@@ -134,6 +134,7 @@ SRC_URI += " \
     git://github.com/rust-vmm/mshv;protocol=https;nobranch=1;name=mshv-ioctls;destsuffix=mshv-ioctls \
     git://github.com/rust-vmm/vfio-ioctls;protocol=https;nobranch=1;name=vfio-ioctls;destsuffix=vfio-ioctls \
     git://github.com/rust-vmm/vm-fdt;protocol=https;nobranch=1;name=vm-fdt;destsuffix=vm-fdt \
+    file://0001-Remove-patching-of-kvm-and-versionaize_derive.patch \
     file://config-20.2 \
 "
 

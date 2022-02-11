@@ -1,0 +1,30 @@
+From af30747ae60e0a2a7fffaf6c4d26cb03e13bc891 Mon Sep 17 00:00:00 2001
+From: Muminul Islam <muislam@microsoft.com>
+Date: Tue, 8 Feb 2022 17:16:46 -0800
+Subject: [PATCH] Remove patching of kvm-* and versionaize_derive
+
+Signed-off-by: Muminul Islam <muislam@microsoft.com>
+---
+ Cargo.toml | 6 ------
+ 1 file changed, 6 deletions(-)
+
+diff --git a/Cargo.toml b/Cargo.toml
+index 446fbbd8..c7d61bc1 100644
+--- a/Cargo.toml
++++ b/Cargo.toml
+@@ -33,12 +33,6 @@ vm-memory = "0.6.0"
+ [build-dependencies]
+ clap = { version = "2.34.0", features = ["wrap_help"] }
+ 
+-# List of patched crates
+-[patch.crates-io]
+-kvm-bindings = { git = "https://github.com/cloud-hypervisor/kvm-bindings", branch = "ch-v0.5.0", features = ["with-serde", "fam-wrappers"] }
+-kvm-ioctls = { git = "https://github.com/rust-vmm/kvm-ioctls", branch = "main" }
+-versionize_derive = { git = "https://github.com/cloud-hypervisor/versionize_derive", branch = "ch" }
+-
+ [dev-dependencies]
+ credibility = "0.1.3"
+ dirs = "4.0.0"
+-- 
+2.25.1
+
