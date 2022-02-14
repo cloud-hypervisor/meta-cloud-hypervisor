@@ -1,0 +1,175 @@
+From 93ffe3a1815509cb4effa01233a3e0c1a307dca4 Mon Sep 17 00:00:00 2001
+From: Muminul Islam <muislam@microsoft.com>
+Date: Thu, 10 Feb 2022 14:07:03 -0800
+Subject: [PATCH] Update depedency to Cargo.lock not to use patching
+
+Signed-off-by: Muminul Islam <muislam@microsoft.com>
+---
+ Cargo.lock | 59 +++++++++++++++++++++++++++++++++++++++++-------------
+ 1 file changed, 45 insertions(+), 14 deletions(-)
+
+diff --git a/Cargo.lock b/Cargo.lock
+index 2e977071..2fd2607a 100644
+--- a/Cargo.lock
++++ b/Cargo.lock
+@@ -77,7 +77,7 @@ dependencies = [
+  "serde_derive",
+  "thiserror",
+  "versionize",
+- "versionize_derive",
++ "versionize_derive 0.1.4 (git+https://github.com/cloud-hypervisor/versionize_derive?branch=ch)",
+  "vm-fdt",
+  "vm-memory",
+  "vm-migration",
+@@ -141,7 +141,7 @@ dependencies = [
+  "qcow",
+  "thiserror",
+  "versionize",
+- "versionize_derive",
++ "versionize_derive 0.1.4 (git+https://github.com/cloud-hypervisor/versionize_derive?branch=ch)",
+  "vhdx",
+  "virtio-bindings",
+  "virtio-queue",
+@@ -250,7 +250,7 @@ dependencies = [
+  "libc",
+  "log",
+  "versionize",
+- "versionize_derive",
++ "versionize_derive 0.1.4 (git+https://github.com/cloud-hypervisor/versionize_derive?branch=ch)",
+  "vm-device",
+  "vm-memory",
+  "vm-migration",
+@@ -393,8 +393,8 @@ dependencies = [
+  "env_logger",
+  "epoll",
+  "iced-x86",
+- "kvm-bindings",
+- "kvm-ioctls",
++ "kvm-bindings 0.5.0 (git+https://github.com/cloud-hypervisor/kvm-bindings?branch=ch-v0.5.0)",
++ "kvm-ioctls 0.11.0 (git+https://github.com/rust-vmm/kvm-ioctls?branch=main)",
+  "libc",
+  "log",
+  "mshv-bindings",
+@@ -451,6 +451,15 @@ version = "0.4.8"
+ source = "registry+https://github.com/rust-lang/crates.io-index"
+ checksum = "b71991ff56294aa922b450139ee08b3bfc70982c6b2c7562771375cf73542dd4"
+ 
++[[package]]
++name = "kvm-bindings"
++version = "0.5.0"
++source = "registry+https://github.com/rust-lang/crates.io-index"
++checksum = "a78c049190826fff959994b7c1d8a2930d0a348f1b8f3aa4f9bb34cd5d7f2952"
++dependencies = [
++ "vmm-sys-util",
++]
++
+ [[package]]
+ name = "kvm-bindings"
+ version = "0.5.0"
+@@ -461,12 +470,23 @@ dependencies = [
+  "vmm-sys-util",
+ ]
+ 
++[[package]]
++name = "kvm-ioctls"
++version = "0.11.0"
++source = "registry+https://github.com/rust-lang/crates.io-index"
++checksum = "97422ba48d7ffb66fd4d18130f72ab66f9bbbf791fb7a87b9291cdcfec437593"
++dependencies = [
++ "kvm-bindings 0.5.0 (registry+https://github.com/rust-lang/crates.io-index)",
++ "libc",
++ "vmm-sys-util",
++]
++
+ [[package]]
+ name = "kvm-ioctls"
+ version = "0.11.0"
+ source = "git+https://github.com/rust-vmm/kvm-ioctls?branch=main#d22ef1f51852dfb055da38004e1a4fed81246f81"
+ dependencies = [
+- "kvm-bindings",
++ "kvm-bindings 0.5.0 (registry+https://github.com/rust-lang/crates.io-index)",
+  "libc",
+  "vmm-sys-util",
+ ]
+@@ -605,7 +625,7 @@ dependencies = [
+  "serde",
+  "serde_json",
+  "versionize",
+- "versionize_derive",
++ "versionize_derive 0.1.4 (git+https://github.com/cloud-hypervisor/versionize_derive?branch=ch)",
+  "virtio-bindings",
+  "virtio-queue",
+  "vm-memory",
+@@ -675,7 +695,7 @@ dependencies = [
+  "log",
+  "thiserror",
+  "versionize",
+- "versionize_derive",
++ "versionize_derive 0.1.4 (git+https://github.com/cloud-hypervisor/versionize_derive?branch=ch)",
+  "vfio-bindings",
+  "vfio-ioctls",
+  "vfio_user",
+@@ -1122,10 +1142,21 @@ dependencies = [
+  "serde",
+  "serde_derive",
+  "syn",
+- "versionize_derive",
++ "versionize_derive 0.1.4 (registry+https://github.com/rust-lang/crates.io-index)",
+  "vmm-sys-util",
+ ]
+ 
++[[package]]
++name = "versionize_derive"
++version = "0.1.4"
++source = "registry+https://github.com/rust-lang/crates.io-index"
++checksum = "140aa9fd298f667ea50fa1cb0d8530076924079285c623b18b8f8a1c28386b4a"
++dependencies = [
++ "proc-macro2",
++ "quote",
++ "syn",
++]
++
+ [[package]]
+ name = "versionize_derive"
+ version = "0.1.4"
+@@ -1151,8 +1182,8 @@ version = "0.1.0"
+ source = "git+https://github.com/rust-vmm/vfio-ioctls?branch=main#19e5b83ddfad430109ce3e8d51f4a24796099127"
+ dependencies = [
+  "byteorder",
+- "kvm-bindings",
+- "kvm-ioctls",
++ "kvm-bindings 0.5.0 (registry+https://github.com/rust-lang/crates.io-index)",
++ "kvm-ioctls 0.11.0 (registry+https://github.com/rust-lang/crates.io-index)",
+  "libc",
+  "log",
+  "mshv-bindings",
+@@ -1285,7 +1316,7 @@ dependencies = [
+  "serde_derive",
+  "serde_json",
+  "versionize",
+- "versionize_derive",
++ "versionize_derive 0.1.4 (git+https://github.com/cloud-hypervisor/versionize_derive?branch=ch)",
+  "vhost",
+  "virtio-bindings",
+  "virtio-queue",
+@@ -1355,7 +1386,7 @@ dependencies = [
+  "serde_json",
+  "thiserror",
+  "versionize",
+- "versionize_derive",
++ "versionize_derive 0.1.4 (git+https://github.com/cloud-hypervisor/versionize_derive?branch=ch)",
+  "vm-memory",
+ ]
+ 
+@@ -1402,7 +1433,7 @@ dependencies = [
+  "thiserror",
+  "uuid",
+  "versionize",
+- "versionize_derive",
++ "versionize_derive 0.1.4 (git+https://github.com/cloud-hypervisor/versionize_derive?branch=ch)",
+  "vfio-ioctls",
+  "vfio_user",
+  "vhdx",
+-- 
+2.25.1
+

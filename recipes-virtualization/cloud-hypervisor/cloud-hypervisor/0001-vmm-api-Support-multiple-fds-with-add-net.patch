@@ -1,0 +1,90 @@
+From da53e6615fff219619356367dba56dbea44afe64 Mon Sep 17 00:00:00 2001
+From: Sebastien Boeuf <sebastien.boeuf@intel.com>
+Date: Fri, 21 Jan 2022 08:54:22 +0100
+Subject: [PATCH] vmm: api: Support multiple fds with add-net
+
+Based on the latest code from the micro-http crate, this patch adds the
+support for multiple file descriptors to be sent along with the add-net
+request. This means we can now hotplug multiqueue network interface to
+the VM.
+
+Signed-off-by: Sebastien Boeuf <sebastien.boeuf@intel.com>
+---
+ Cargo.lock                   |  2 +-
+ vmm/src/api/http.rs          | 10 +++++++---
+ vmm/src/api/http_endpoint.rs |  9 +++++----
+ 3 files changed, 13 insertions(+), 8 deletions(-)
+
+diff --git a/Cargo.lock b/Cargo.lock
+index 98de9123..2e977071 100644
+--- a/Cargo.lock
++++ b/Cargo.lock
+@@ -545,7 +545,7 @@ checksum = "308cc39be01b73d0d18f82a0e7b2a3df85245f84af96fdddc5d202d27e47b86a"
+ [[package]]
+ name = "micro_http"
+ version = "0.1.0"
+-source = "git+https://github.com/firecracker-microvm/micro-http?branch=main#0a58eb1ece68e326e68365c4297d0a7c08ecd9bc"
++source = "git+https://github.com/firecracker-microvm/micro-http?branch=main#a730d86940081ad044cdfbc1285c1db6d3048392"
+ dependencies = [
+  "libc",
+  "vmm-sys-util",
+diff --git a/vmm/src/api/http.rs b/vmm/src/api/http.rs
+index 673ca997..897ed220 100644
+--- a/vmm/src/api/http.rs
++++ b/vmm/src/api/http.rs
+@@ -146,9 +146,13 @@ pub trait EndpointHandler: Sync + Send {
+         api_notifier: EventFd,
+         api_sender: Sender<ApiRequest>,
+     ) -> Response {
+-        let file = req.file.as_ref().map(|f| f.try_clone().unwrap());
++        // Cloning the files here is very important as it dup() the file
++        // descriptors, leaving open the one that was received. This way,
++        // rebooting the VM will work since the VM will be created from the
++        // original file descriptors.
++        let files = req.files.iter().map(|f| f.try_clone().unwrap()).collect();
+         let res = match req.method() {
+-            Method::Put => self.put_handler(api_notifier, api_sender, &req.body, file),
++            Method::Put => self.put_handler(api_notifier, api_sender, &req.body, files),
+             Method::Get => self.get_handler(api_notifier, api_sender, &req.body),
+             _ => return Response::new(Version::Http11, StatusCode::BadRequest),
+         };
+@@ -176,7 +180,7 @@ pub trait EndpointHandler: Sync + Send {
+         _api_notifier: EventFd,
+         _api_sender: Sender<ApiRequest>,
+         _body: &Option<Body>,
+-        _file: Option<File>,
++        _files: Vec<File>,
+     ) -> std::result::Result<Option<Body>, HttpError> {
+         Err(HttpError::BadRequest)
+     }
+diff --git a/vmm/src/api/http_endpoint.rs b/vmm/src/api/http_endpoint.rs
+index 68d8ab63..3515e51d 100644
+--- a/vmm/src/api/http_endpoint.rs
++++ b/vmm/src/api/http_endpoint.rs
+@@ -76,7 +76,7 @@ impl EndpointHandler for VmActionHandler {
+         api_notifier: EventFd,
+         api_sender: Sender<ApiRequest>,
+         body: &Option<Body>,
+-        file: Option<File>,
++        mut files: Vec<File>,
+     ) -> std::result::Result<Option<Body>, HttpError> {
+         use VmAction::*;
+         if let Some(body) = body {
+@@ -111,10 +111,11 @@ impl EndpointHandler for VmActionHandler {
+ 
+                 AddNet(_) => {
+                     let mut net_cfg: NetConfig = serde_json::from_slice(body.raw())?;
+-                    // Update network config with optional file that might have
++                    // Update network config with optional files that might have
+                     // been sent through control message.
+-                    if let Some(file) = file {
+-                        net_cfg.fds = Some(vec![file.into_raw_fd()]);
++                    if !files.is_empty() {
++                        let fds = files.drain(..).map(|f| f.into_raw_fd()).collect();
++                        net_cfg.fds = Some(fds);
+                     }
+                     vm_add_net(api_notifier, api_sender, Arc::new(net_cfg))
+                         .map_err(HttpError::VmAddNet)
+-- 
+2.25.1
+
