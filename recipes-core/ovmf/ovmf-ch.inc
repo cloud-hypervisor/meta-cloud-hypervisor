@@ -27,7 +27,7 @@ SRC_URI = "git://github.com/cloud-hypervisor/edk2.git;branch=ch;name=edk2;protoc
 
 PV = "20210206.0"
 SRCREV_FORMAT .= "_edk2"
-SRCREV_edk2_pn-${PN} = "4b47d0c6c831ecf4343044039cfb9097f01b483b"
+SRCREV_edk2_pn-${PN} = "cad5f050686c59e3db4d14bb383f1cbc9d498913"
 SRCREV_FORMAT .= "_openssl"
 SRCREV_openssl_pn-${PN} = "869e1424438b3c117d6ef4d3fbf4545cc7dab171"
 SRCREV_FORMAT .= "_softfloat"
