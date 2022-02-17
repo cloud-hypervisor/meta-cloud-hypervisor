@@ -1,0 +1,44 @@
+From 6737f882a7975984bff3d7b60719838600c0fa18 Mon Sep 17 00:00:00 2001
+From: Muminul Islam <muislam@microsoft.com>
+Date: Thu, 17 Feb 2022 09:12:37 -0800
+Subject: [PATCH] Fix reference of SIGNALS iterations
+
+Signed-off-by: Muminul Islam <muislam@microsoft.com>
+---
+ src/main.rs   | 4 ++--
+ vmm/src/vm.rs | 4 ++--
+ 2 files changed, 4 insertions(+), 4 deletions(-)
+
+diff --git a/src/main.rs b/src/main.rs
+index b50187e2..c2a38782 100644
+--- a/src/main.rs
++++ b/src/main.rs
+@@ -513,8 +513,8 @@ fn start_vmm(cmd_arguments: ArgMatches) -> Result<Option<String>, Error> {
+     // Before we start any threads, mask the signals we'll be
+     // installing handlers for, to make sure they only ever run on the
+     // dedicated signal handling thread we'll start in a bit.
+-    for sig in vmm::vm::HANDLED_SIGNALS {
+-        if let Err(e) = block_signal(sig) {
++    for sig in &vmm::vm::HANDLED_SIGNALS {
++        if let Err(e) = block_signal(*sig) {
+             eprintln!("Error blocking signals: {}", e);
+         }
+     }
+diff --git a/vmm/src/vm.rs b/vmm/src/vm.rs
+index 5da9d5da..69411cbd 100644
+--- a/vmm/src/vm.rs
++++ b/vmm/src/vm.rs
+@@ -1660,8 +1660,8 @@ impl Vm {
+         on_tty: bool,
+         exit_evt: &EventFd,
+     ) {
+-        for sig in HANDLED_SIGNALS {
+-            unblock_signal(sig).unwrap();
++        for sig in &HANDLED_SIGNALS {
++            unblock_signal(*sig).unwrap();
+         }
+ 
+         for signal in signals.forever() {
+-- 
+2.25.1
+
