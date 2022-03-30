@@ -10,7 +10,7 @@ LIC_FILES_CHKSUM = "file://OvmfPkg/License.txt;md5=06357ddc23f46577c2aeaeaf7b776
 #  - EFI image build is cut off
 #  - The target firmware is installed under /usr/share/cloud-hypervisor
 
-FILESEXTRAPATHS_prepend := "${THISDIR}/files:"
+FILESEXTRAPATHS:prepend := "${THISDIR}/files:"
 
 SRC_URI = "git://github.com/cloud-hypervisor/edk2.git;branch=ch;name=edk2;protocol=git \
 	git://github.com/openssl/openssl;branch=OpenSSL_1_1_1-stable;protocol=git;name=openssl;destsuffix=git/CryptoPkg/Library/OpensslLib/openssl \
@@ -27,7 +27,7 @@ SRC_URI = "git://github.com/cloud-hypervisor/edk2.git;branch=ch;name=edk2;protoc
 
 PV = "20210206.0"
 SRCREV_FORMAT .= "_edk2"
-SRCREV_edk2_pn-${PN} = "cad5f050686c59e3db4d14bb383f1cbc9d498913"
+SRCREV:edk2_pn-${PN} = "9f1d3f90efab37f09647a91e9b0d30bb4d1c3f61"
 SRCREV_FORMAT .= "_openssl"
 SRCREV_openssl_pn-${PN} = "869e1424438b3c117d6ef4d3fbf4545cc7dab171"
 SRCREV_FORMAT .= "_softfloat"
@@ -91,7 +91,7 @@ fix_toolchain() {
         -e '/^VFR_CPPFLAGS/a CC = ${CC}\nCXX = ${CXX}\nAS = ${AS}\nAR = ${AR}\nLD = ${LD}' \
         ${S}/BaseTools/Source/C/VfrCompile/GNUmakefile
 }
-fix_toolchain_append_class-native() {
+fix_toolchain:append_class-native() {
     # This tools_def.template is going to be used by the target ovmf and
     # defines which compilers to use. For the GCC toolchain definitions,
     # that will be ${HOST_PREFIX}gcc. However, "make" doesn't need that

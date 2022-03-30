@@ -4,7 +4,7 @@ LICENSE = "LGPLv3"
 SECTION = "firmware"
 
 PV = "20200611.0"
-FILESEXTRAPATHS_prepend := "${THISDIR}/files:"
+FILESEXTRAPATHS:prepend := "${THISDIR}/files:"
 
 inherit python3native
 
@@ -25,8 +25,8 @@ LIC_FILES_CHKSUM = "file://COPYING;md5=d32239bcb673463ab874e80d47fae504         
 SRC_URI[md5sum] = "1dc1725bac1d230bfd6b3204eed4f2f7"
 SRC_URI[sha256sum] = "37673dc2d6308591b15bdb94e5bcc3e99bdb40198d2247733c43f50b55dbe703"
 
-FILES_${PN} = "/usr/share/firmware/cloud-hypervisor/csm/bios.bin"
-FILES_${PN}-dev = "/usr/share/firmware/cloud-hypervisor/csm/Csm16.bin"
+FILES:${PN} = "/usr/share/firmware/cloud-hypervisor/csm/bios.bin"
+FILES:${PN}-dev = "/usr/share/firmware/cloud-hypervisor/csm/Csm16.bin"
 
 DEPENDS += "util-linux-native file-native bison-native flex-native gettext-native acpica-native"
 

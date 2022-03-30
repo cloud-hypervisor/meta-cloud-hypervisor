@@ -5,9 +5,9 @@ SeaBIOS CSM module for Cloud Hypervisor."
 
 require ovmf-ch.inc
 
-DEPENDS_append = " seabios-csm-ch"
+DEPENDS:append = " seabios-csm-ch"
 
-do_compile_append_class-target() {
+do_compile:append_class-target() {
     cp ${WORKDIR}/recipe-sysroot/usr/share/firmware/cloud-hypervisor/csm/Csm16.bin ${S}/OvmfPkg/Csm/Csm16/Csm16.bin
 
     ${S}/OvmfPkg/build.sh $PARALLEL_JOBS -a $OVMF_ARCH -b ${EDK_BUILD_TYPE} -t ${EDK_GCCVER} -p OvmfPkg/OvmfCh.dsc -D CSM_ENABLE

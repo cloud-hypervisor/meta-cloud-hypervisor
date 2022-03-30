@@ -1,7 +1,7 @@
 
 require ovmf-ch.inc
 
-do_compile_append_class-target() {
+do_compile:append_class-target() {
     ${S}/OvmfPkg/build.sh $PARALLEL_JOBS -a $OVMF_ARCH -b ${EDK_BUILD_TYPE} -t ${EDK_GCCVER} -p OvmfPkg/CloudHv/CloudHvX64.dsc
 }
 
